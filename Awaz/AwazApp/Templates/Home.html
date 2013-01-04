@@ -1,0 +1,66 @@
+{% extends "Index.html" %}
+{% block left_content_top %}
+<b>List of Categories/Templates</b>
+<ul id="myul">
+    {% for e in objs %}
+   <li class="lid"> <a data-imgsrc = "{{e.12}}" data-color = "{{e.9}}" data-enable = "{{e.3}}" style="cursor:pointer"  onclick = "func(this.getAttribute('data-imgsrc'),'{{e.0}}',this.getAttribute('data-enable'),this.getAttribute('data-color'))"><b>{{e.13}}</b>
+            <a class="parent" data-val="{{e.0}}" href="">
+                <img src="{{ MEDIA_URL}}Images/folder.gif" ><img src="{{ MEDIA_URL}}Images/plus.gif" ></a></a>
+        <ul id="{{e.0}}" >
+        </ul>
+    </li>
+    
+    {% endfor%}
+</ul>
+{% endblock %}
+{% block left_content_bottom %}
+<b>Word search :</b>
+<input type="text" name="search_word" id="search_word">
+<button type="button" id="prev" class="btn btn-info">Prev</button>
+<button type="button"id="word_button" class="btn btn-info">WordSearch</button>
+<button type="button" id="next" class="btn btn-info">Next</button>
+{% endblock %}
+{% block right_content %}
+<b>Share with user (enter) username :</b> <input type="text" id="share"><br>
+<button type="button" id="shareButton" class="btn btn-primary" value="{{d.id}}">Share</button><br>
+<form>
+    <b><u>Edit Details :</u></b><br>
+    Name :<input type="text" id = "ztag_name" name="ztag_name" placeholder = "New tag name"><br>
+    Color : <select id="selectColor">
+	 <option value="Red">Red</option>
+	 <option value="Blue">Blue</option>
+	 <option value="Green">Green</option>
+	 <option value="None">None</option>    
+    </select>
+    Enable image :<input type="checkbox" id="imageEnable" value=1><br>
+    Add a speak as text(optional) : <input type="text" id="audio_data">
+    <button type="button" id="editsave">Save</button>
+</form>
+<form>
+    <b><u>Create new item(template or category) :</u></b>
+    <select id="dropdown">
+        <option value="template">Template</option>
+        <option value="category">Category</option>
+    </select>
+    <button type="button" id="create">Create</button>
+</form>
+<a id = "exportHtml">Export dictionary as html</a><br>
+<a href = "/downloadHtml/" id = "downloadHtml">Download html</a><br>
+
+<a id="exportDict" href="/downloadDict/">Export entire dictionary </a><br>
+
+<div id="db-uploader" style="display:None"></div> 
+{% endblock %}
+{% block right_top %}
+<div class="btn-group pull-right" style="position:absolute; right:15px; top:10px;">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="icon-user"></i> Welcome {{request.user}}
+						<span class="caret"></span>
+					</a>
+					
+					<ul class="dropdown-menu">
+																													
+						<li><a href="/logout/">Logout</a></li>
+					</ul>
+				</div>
+{% endblock %}

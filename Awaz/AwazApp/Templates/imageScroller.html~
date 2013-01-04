@@ -1,0 +1,40 @@
+{% extends "Index.html" %} 
+  	{% block content %}
+  	<style>
+  	#uploadForm{
+  	
+  	position:absolute;
+  	top:300px;
+  	}
+  	</style>
+  		<b><center>{{obj.ztag_name}}</center></b>
+  		{% if obj.zpicture  !=  None %}
+  		<b><center>{{obj.zpicture}}</center></b>
+		<center><img src="{{MEDIA_URL}}/png/{{obj.zpicture}}" style="width:200px; height:175px"></center>
+		<b><center><a href = "/removeImg/{{obj.z_pk}}" class = "btn btn-danger">Clear Image</a></center></b>
+		{% else %}
+		<b><center>Image not available</center></b>
+		{% endif %}
+		<div id = "uploadForm">
+		<form action="" method="POST" enctype="multipart/form-data">		
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+                <tr>
+                    <td><input type="submit" value="Upload" class = "btn btn-primary"/></td>
+                    
+                   <!-- <td><button type="button" onclick="redirect()">Back</button></td> -->
+                </tr>
+            </table>
+        </form>
+        <form method = "GET">
+        {% csrf_token %}
+        <table>
+        {{ form2.as_table }}
+        </table>
+        <!--Search : <input type = "text" name = "search">-->
+        <input type = "submit" value = "Search" class = "btn">
+        </form>
+        </div>
+  		{% endblock %}
+

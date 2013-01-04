@@ -1,0 +1,25 @@
+<html>
+<head>
+ <link rel="stylesheet" href="{{MEDIA_URL}}/CSS/bootstrap.min.css">
+</head><body>
+<div id="main" style="height:585px">
+<center>
+<h1>Login Portal</h1>
+<center><img src="{{ MEDIA_URL }}Images/img/avaz.png" style="position:relative; height:300px; width:450px; top:30px;" ></center>
+<div>
+<form action = "" method="POST" class = "well"style="position:absolute; width:300px; top:450px;left:515px;">
+	{% csrf_token %}
+<br><br>
+<table>
+<tr><td>Username:</td><td><input type ='text' name ='username' placeholder = 'Username'></td></tr> 
+<tr><td>Password:</td> <td><input type ='password' name ='password' placeholder = 'Password'></td></tr>
+<tr><td></td><td><input type = 'submit' value = 'Login' class="btn btn-primary"/></td></tr>
+</table>
+<span style = "position:absolute; left:570px; top:360px;">{% if flop == 0 %}<font color ='red'><b>User name or password incorrect</b></font>{% endif %}</span> 
+</form>
+</div>
+</center>
+</div>
+</body>
+</html>
+

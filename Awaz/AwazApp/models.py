@@ -1,0 +1,59 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#     * Rearrange models' order
+#     * Make sure each model has one field with primary_key=True
+# Feel free to rename the models, but don't rename db_table values or field names.
+#
+# Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
+# into your database.
+
+from django.db import models
+from datetime import datetime
+from django.contrib.auth.models import User
+
+class Zpicmodedict(models.Model):
+    z_pk = models.IntegerField(null=True, primary_key=True, db_column=u'Z_PK', blank=True) # Field name made lowercase.
+    z_ent = models.IntegerField(null=True, db_column=u'Z_ENT', blank=True) # Field name made lowercase.
+    z_opt = models.IntegerField(null=True, db_column=u'Z_OPT', blank=True) # Field name made lowercase.
+    zis_enabled = models.IntegerField(null=True, db_column=u'ZIS_ENABLED', blank=True) # Field name made lowercase.
+    zis_sentence_box_enabled = models.IntegerField(null=True, db_column=u'ZIS_SENTENCE_BOX_ENABLED', blank=True) # Field name made lowercase.
+    zserial = models.DecimalField(decimal_places=4, null=True, max_digits=10, db_column=u'ZSERIAL', blank=True) # Field name made lowercase.
+    zversion = models.DecimalField(decimal_places=4, null=True, max_digits=10, db_column=u'ZVERSION', blank=True) # Field name made lowercase.
+    zaudio_data = models.TextField(db_column=u'ZAUDIO_DATA', blank=True) # Field name made lowercase. This field type is a guess.
+    zcategory_or_template = models.TextField(db_column=u'ZCATEGORY_OR_TEMPLATE', blank=True) # Field name made lowercase. This field type is a guess.
+    zcolor = models.TextField(db_column=u'ZCOLOR', blank=True) # Field name made lowercase. This field type is a guess.
+    zidentifier = models.TextField(db_column=u'ZIDENTIFIER', blank=True) # Field name made lowercase. This field type is a guess.
+    zparent_id = models.TextField(db_column=u'ZPARENT_ID', blank=True) # Field name made lowercase. This field type is a guess.
+    zpicture = models.TextField(db_column=u'ZPICTURE', blank=True) # Field name made lowercase. This field type is a guess.
+    ztag_name = models.TextField(db_column=u'ZTAG_NAME', blank=True) # Field name made lowercase. This field type is a guess.
+    class Meta:
+        db_table = u'ZPICMODEDICT'
+
+def get_image_path(instance, filename):
+	dir_path = 'png/custom_images/'
+	return dir_path + filename
+
+class ImageUpload(models.Model):
+	image_id = models.AutoField(primary_key=True)
+	upload_file    = models.FileField(upload_to = get_image_path, blank = True, null = True)	
+
+class Zimagedata(models.Model):
+    z_pk = models.IntegerField(null=True, primary_key=True, db_column=u'Z_PK', blank=True) # Field name made lowercase.
+    z_ent = models.IntegerField(null=True, db_column=u'Z_ENT', blank=True) # Field name made lowercase.
+    z_opt = models.IntegerField(null=True, db_column=u'Z_OPT', blank=True) # Field name made lowercase.
+    zindex = models.DecimalField(decimal_places=2, null=True, max_digits=15, db_column=u'ZINDEX', blank=True) # Field name made lowercase.
+    zdirectory_path = models.TextField(db_column=u'ZDIRECTORY_PATH', blank=True) # Field name made lowercase. This field type is a guess.
+    zfile_name = models.TextField(db_column=u'ZFILE_NAME', blank=True) # Field name made lowercase. This field type is a guess.
+    zkey_words = models.TextField(db_column=u'ZKEY_WORDS', blank=True) # Field name made lowercase. This field type is a guess.
+    class Meta:
+        db_table = u'ZIMAGEDATA'
+
+
+class Dictionary(models.Model):
+	zname = models.TextField(db_column=u'ZNAME',blank=False)
+	zpath = models.TextField(db_column=u'ZPATH',blank=False)
+	zdir_path = models.TextField(db_column=u'ZDIR_PATH',blank=False)
+
+class UserDictionary(models.Model):
+	zuserid = models.IntegerField(db_column=u'ZUID', blank=True)
+	zdictid = models.IntegerField(db_column=u'ZDID', blank=True) 

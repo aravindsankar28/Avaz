@@ -1,0 +1,14 @@
+from django import forms
+from AwazApp.models import ImageUpload
+        
+class ImageUploadForm(forms.ModelForm):
+	class Meta:
+		model = ImageUpload
+		widgets = {
+            'my_image_field': AjaxClearableFileInput
+        }
+
+class SearchImageForm(forms.Form):
+	search_field = forms.CharField(max_length=40)
+	
+	

@@ -1,0 +1,10 @@
+{% extends "Index.html" %}
+{% block content %}
+<ul>
+{% for x in objs %}
+<li id = "tag" onclick = "func('{{x.zpicture}}')">{{x.ztag_name}} <a href = "/getChildren/{{x.z_pk}}/"><button>Get Children</button> </a></li><br>
+{% endfor %}
+</ul>
+{% endblock %}
+{% block right_content %}
+{% endblock %}

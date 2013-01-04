@@ -1,0 +1,8 @@
+{% extends "Index.html" %}
+{% block content %}
+<form action="" method="post">
+{% csrf_token %}
+{{ f.as_table }}
+<button>save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,75 @@
+<html>
+<head>
+ <link rel="stylesheet" href="{{MEDIA_URL}}/CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="{{MEDIA_URL}}/CSS/fileuploader.css">
+ <link rel="stylesheet" href="{{MEDIA_URL}}/CSS/bootstrap-responsive.min.css">
+   <script src = "{{MEDIA_URL}}/JS/bootstrap.min.js"></script>
+ <script src = "{{MEDIA_URL}}/JS/jquery.js"></script>
+ <script src = "{{MEDIA_URL}}/JS/fileuploader.js"></script>
+ <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+ <script type="text/javascript" >
+ $(document).ready(function(){            	 
+                var file_name = "";
+                var uploader = new qq.FileUploader({
+                    action: "/ajax-db",
+                    element: $('#db-uploader')[0],
+                    multiple: true,
+                    onComplete: function(id, fileName, responseJSON) {
+                        file_name = fileName
+                        if(responseJSON.success) {
+                        	alert("success");                                          
+                        } else {                        
+                            alert("upload failed!");
+                        }
+                    },
+                    onAllComplete: function(uploads) {                   
+                        $.ajax({
+								url:'/extractCreate/',
+								type:'get',
+								data:{file_name:file_name},
+								success: function(response) { 
+								alert(response);
+								}                        
+                        
+                        });                                                                                                     
+                    },
+                    params: {
+                        'csrf_token': '{{ csrf_token }}',
+                        'csrf_name': 'csrfmiddlewaretoken',
+                        'csrf_xname': 'X-CSRFToken',
+                    },
+                });                                                 
+            });
+</script>
+</head>
+<body>
+Welcome {{u.username}}   {{u.id}}<br>
+List of dictionaries :
+<ul>
+{% for d in dicts %}
+<li><a href="/home/{{d.id}}" >{{d.zname}}</a></li>
+{% endfor %}
+</ul>
+
+<b> <a href="/createDict/{{u.id}}/" > Create Dictionary </a></b><br><br>
+
+
+<div class="btn-group pull-right" style="position:absolute; right:40px; top:10px;">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="icon-user"></i> Welcome {{request.user}}
+						<span class="caret"></span>
+					</a>
+					
+					<ul class="dropdown-menu">
+																													
+						<li><a href="/logout/">Logout</a></li>
+					</ul>
+				</div>
+
+
+<b>Open dictionary(.zip) with containing folder and the sqlite file having same name as the zip file,<p> and having custom_images directory :</b>
+<div id="db-uploader">
+</div>
+
+</body>
+</html>

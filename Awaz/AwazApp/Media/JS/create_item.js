@@ -1,0 +1,59 @@
+$(document).ready(function(){            
+                $(".carousel").carousel({                   
+                });
+
+            });
+            
+$(document).ready(function(){   
+                $("#create").click(function(){
+	 					 
+                    var parentid = getValue();
+              		 // alert($("#dropdown").attr('value'));
+                    $.ajax({
+	  
+                        url:'/create/',
+                        type:'post',
+                        data:{select:$("#dropdown").attr('value'),parentid:parentid},
+	  
+                        success: function(response) {
+                            $('.current').trigger('click'); 
+                  //          alert(response);      
+                            console.log(response)                  
+                            var y =jQuery.parseJSON(response) ;
+                            
+                            alert("Created !!");
+                          //  alert(y[0].pk);
+                            //var a = y[0].fields.ztag_name;
+                            var a = y[0][13];
+                            //  alert(y[0].fields.zcategory_or_template);
+                            //if(y[0].fields.zcategory_or_template  ==  "T" && y[1].fields.zcategory_or_template  ==  "T" )
+                            if(y[0][8] == "T" && y[1][8]  ==  "T" )
+                            {
+                                //$('<li class ="imgs" data-name = "'+y[0].fields.ztag_name+'" data-imgsrc="'+y[0].fields.zpicture+'" data-val = "'+y[0].pk+'"><a style="cursor:pointer">'+a+'</a></li>').insertAfter(".current");
+ 										  $('<li class ="imgs" data-color ="black" data-name = "'+y[0][13]+'" data-enable = "'+y[0][3]+'" data-imgsrc="'+y[0][12]+'" data-val = "'+y[0][0]+'"><a style="cursor:pointer">'+a+'</a></li>').insertAfter(".current");                           
+                            }
+                            //else if(y[0].fields.zcategory_or_template  ==  "T" && y[1].fields.zcategory_or_template  ==  "D" )
+                            else if(y[0][8] ==  "T" && y[1][8] ==  "D" )
+                            {
+                                //$("#"+y[1].pk).prepend('<li class ="imgs" data-name = "'+y[0].fields.ztag_name+'" data-imgsrc="'+y[0].fields.zpicture+'" data-val = "'+y[0].pk+'"><a style="cursor:pointer">'+a+'</a></li></ul>');
+										$("#"+y[1].pk).prepend('<li class ="imgs" data-color ="black" data-name = "'+y[0][13]+'" data-enable = "'+y[0][3]+'" data-imgsrc="'+y[0][12]+'" data-val = "'+y[0][0]+'"><a style="cursor:pointer">'+a+'</a></li></ul>');							
+                            }                          	 
+                            //else if(y[0].fields.zcategory_or_template  ==  "D" && y[1].fields.zcategory_or_template  ==  "T" )
+                            else if(y[0][8] ==  "D" && y[1][8] ==  "T" )
+                            {
+                                alert("Category");                                                    	                           	                         	 
+                                //$('<li class ="imgs" data-name = "'+y[0].fields.ztag_name+'" data-imgsrc="'+y[0].fields.zpicture+'" data-val = "'+y[0].pk+'"><a style="cursor:pointer"><b>'+a+'</b></a></li><a href = "" class="parent" data-val = "'+y[0].pk+'" ><img src="/media/Images/folder.gif"><img src="/media/Images/plus.gif" id = "folder"></a><ul class="parent" id=  "'+y[0].pk+'"></ul>').insertAfter('.current');
+									  $('<li class ="imgs" data-color ="black" data-name = "'+y[0][13]+'" data-enable = "'+y[0][3]+'" data-imgsrc="'+y[0][12]+'" data-val = "'+y[0][0]+'"><a style="cursor:pointer"><b>'+a+'</b></a></li><a href = "" class="parent" data-val = "'+y[0][0]+'" ><img src="/media/Images/folder.gif"><img src="/media/Images/plus.gif" id = "folder"></a><ul class="parent" id=  "'+y[0][0]+'"></ul>').insertAfter('.current');                    	                          	 
+                            }
+                            else
+                            {
+                                alert("Category"); 
+                                $("#"+y[1].pk).prepend('<li class ="imgs" data-color ="black" data-name = "'+y[0][13]+'" data-enable = "'+y[0][3]+'" data-imgsrc="'+y[0][12]+'" data-val = "'+y[0][0]+'"><a style="cursor:pointer"><b>'+a+'</b></a></li><a href = "" class="parent" data-val = "'+y[0][0]+'" ><img src="/media/Images/folder.gif"><img src="/media/Images/plus.gif" id = "folder"></a><ul class="parent" id=  "'+y[0][0]+'"></ul>');
+                            }
+                        }
+			
+                    });
+	 
+                });
+	  
+            });

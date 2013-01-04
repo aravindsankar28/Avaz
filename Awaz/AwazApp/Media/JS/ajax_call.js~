@@ -1,0 +1,18 @@
+//First half
+$(document).ready(function() {
+    //Deteremines the current URL, eg www.example.com
+    var currentpath = window.location;
+
+    //Initally, each link turned to red. This is an indicator the jQuery is working correctly.
+    $('.parent').css("color","red");
+
+    //The following calls a function when a "slug" link is clicked... - *1
+    $('.parent').click(
+        function(){
+            //Stores which slug link was clicked as the variable "object"
+            var object = $(this);
+
+            //When clicked the color changes to blue. This was used more when debugging
+            $(this).css("color","blue");
+
+    }        //The url for the request is taken from the <a> object var url = object.attr("href"); //The request path is fixed, i.e "www.example.com" + "slug/1/" - *2 var call_url = currentpath + url; //Next up is our bread and butter. - *3 //An ajax function is called. If you wanted to save line space, you could convert this to use .get, however I like the clarity of .ajax more. $.ajax( { //The request type is set to GET, alternatively, it could be POST if we were passing data. type:"GET", //The url is set to our request path. url:call_url, //Datatype set to "json" dataType: "json", //Next, once the request is successful, the following function is called, and a json response is returned and held in the (temp) variable data. *4 success: function (data) { //The description (data.slug) is added object.before(data.slug); //The "button" is hide object.hide(); } }); //Finally, (and importantly) return false; stops the click from taking us through to the url listed in href. Trying commenting out this line and see what happens. //This is incredibly useful. Browsers with javascript disabled, will still follow through to description page. While, "enchanced" browsers will get the data passed to the page they are on. *5 return false; }); } ); </a>

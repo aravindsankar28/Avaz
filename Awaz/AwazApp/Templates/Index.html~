@@ -1,0 +1,255 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{MEDIA_URL}}/CSS/bootstrap.min.css">
+        <link rel="stylesheet" href="{{MEDIA_URL}}/CSS/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="{{MEDIA_URL}}/CSS/styles.css">        
+        <link href="{{MEDIA_URL}}/CSS/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
+        <script src=  "{{MEDIA_URL}}/JS/fileuploader.js" ></script>
+        <script src = "{{MEDIA_URL}}/JS/bootstrap.js"></script>
+        <script src = "{{MEDIA_URL}}/JS/bootstrap.min.js"></script>
+        <script src = "{{MEDIA_URL}}/JS/jquery.js"></script>
+        <script src = "{{MEDIA_URL}}/JS/create_tree.js"></script>
+        <script src = "{{MEDIA_URL}}/JS/editItem.js"></script>
+        <script src = "{{MEDIA_URL}}/JS/create_item.js"></script>  
+        <script src = "{{MEDIA_URL}}/JS/getSearch.js"></script>
+        <script src = "{{MEDIA_URL}}/JS/wordSearch.js"></script>
+        <script src = "{{MEDIA_URL}}/JS/upload_db.js"></script>
+        <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>  
+        <script src = "http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script> 
+        <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+       
+        <script type="text/javascript" >
+        $(document).ready(function(){  
+        $("#shareButton").click(function(){
+        var did = $(this).attr('value');
+        var newuser = $("#share").attr('value');
+        alert(did);
+        $.ajax({
+        
+        url:'/share/',
+		  type:'get',
+		  data:{newuser:newuser,did:did},
+		  success: function(response) { 
+		  //alert(response);
+		  alert("Shared Successfully !");
+		  }        
+        
+        });
+        });
+        
+        });
+        			 $(document).ready(function(){            	 
+                var file_name = "";
+                var uploader = new qq.FileUploader({
+                    action: "/ajax-db",
+                    element: $('#db-uploader')[0],
+                    multiple: true,
+                    onComplete: function(id, fileName, responseJSON) {
+                        file_name = fileName
+                        if(responseJSON.success) {
+                        	alert("success");                                          
+                        } else {                        
+                            alert("upload failed!");
+                        }
+                    },
+                    onAllComplete: function(uploads) {                   
+                        $.ajax({
+								url:'/extractCreate/',
+								type:'get',
+								data:{file_name:file_name},
+								success: function(response) { 
+								alert(response);
+								}                        
+                        
+                        });                                                                                                     
+                    },
+                    params: {
+                        'csrf_token': '{{ csrf_token }}',
+                        'csrf_name': 'csrfmiddlewaretoken',
+                        'csrf_xname': 'X-CSRFToken',
+                    },
+                });                                                 
+            });
+		  </script>     
+        <script type="text/javascript" >
+            $(document).ready(function(){
+                $("#img_url_upload_button").click(function(){        	        		
+                    var zpk = getValue();
+                    var url = $("#img_url").attr('value');
+                    //alert(zpk);    
+                    //alert(url);
+                    $.ajax({
+                        url:'/img/',
+                        type:'get',
+                        data:{zpk:zpk,url:url},
+                        success: function(response) { 
+                            //alert(response);
+                            alert("Image uploaded successfully");
+                            if ($('.current').attr('data-imgsrc') !== undefined)   
+                                    $(".current").attr('data-imgsrc',response);
+                                else
+                                    $(".current").prev().attr('data-imgsrc',response);      
+                                   
+                                $('#contentTop').html("<img style = 'width:394px ; height:300px;' id = 'currImg' src ='{{MEDIA_URL}}/"+response+"' onError='trys(this)' >");  
+                        }
+                    });
+                });
+                $("#exportHtml").click(function(){
+                    var spinner = $("<br><center><img src='{{MEDIA_URL}}/Images/spinner.gif' /></center>").insertAfter(this);
+                    $.ajax({
+                        url:'/export/',
+                        type:'get',
+                        success: function(response){
+                            spinner.remove();
+                            alert(response);
+                            $("#downloadHtml").css('display','block');
+                        }
+                    });
+                });
+                
+        		
+            });
+            function toolTip()
+            {
+                if(confirm("r u sure u want replace the image ?"))				
+                    return true;					
+                else
+                    return false;		  
+            }
+            function deleteTip()
+            {
+                if(confirm("r u sure u want delete the image ?"))				
+                    return true;					
+                else
+                    return false;		  
+            }
+			  
+            $(document).ready(function(){
+            	 
+                var file_name = "";
+                var uploader = new qq.FileUploader({
+                    action: "/ajax-upload",
+                    element: $('#file-uploader')[0],
+                    multiple: true,
+                    onComplete: function(id, fileName, responseJSON) {
+                        file_name = fileName
+                        if(responseJSON.success) {
+                                          
+                        } else {
+                            alert("upload failed!");
+                        }
+                    },
+                    onAllComplete: function(uploads) {                   
+                        // the maps look like this: {file: FileObject, response: JSONServerResponse}                    
+                        alert("All complete!");
+                        var zpk = getValue();        
+                        // alert(file_name);  
+                        $.ajax({						   
+                            url:'/upload/',
+                            type:'get',
+                            data:{file_name:file_name,zpk:zpk},                              		
+                            success: function(response) { 
+                                alert(response);
+                                if ($('.current').attr('data-imgsrc') !== undefined)   
+                                    $(".current").attr('data-imgsrc',response);
+                                else
+                                    $(".current").prev().attr('data-imgsrc',response);      
+                                   
+                                $('#contentTop').html("<img style = 'width:394px ; height:300px;' id = 'currImg' src ='{{MEDIA_URL}}/"+response+"' onError='trys(this)' >");                     
+                            }
+                        });                    
+                    },
+                    params: {
+                        'csrf_token': '{{ csrf_token }}',
+                        'csrf_name': 'csrfmiddlewaretoken',
+                        'csrf_xname': 'X-CSRFToken',
+                    },
+                });                                                 
+            });
+            
+            
+            
+                                               
+            
+        </script>
+        <script type="text/javascript"> 
+            function trys(obj)
+            {
+                var x= obj.src;
+                var vari = x.substr(x.lastIndexOf('/') + 1);       
+              //  document.getElementById('contentTop').innerHTML="<img style = 'width:394px ; height:300px;' id = 'currImg' src ='{{MEDIA_URL}}/custom_images/"+vari+"' onError='errors(this)'>"  
+            }    
+            function errors(obj)
+            {				
+                document.getElementById('contentTop').innerHTML ="Image not available";  
+            }        		
+            function func(vari,var1,var2,var3)
+            {
+                x = var1;   
+                                      
+                document.getElementById('contentTop').innerHTML="<img id = 'currImg' src ='{{MEDIA_URL}}/"+vari+"' onError='errors(this)'>";
+                document.getElementById('forms').style.display="block";
+                document.getElementById('img_url_upload').style.display="block";
+                document.getElementById("file-uploader").style.display = "block";
+                if(var2 == 0)
+                	document.getElementById('currImg').style.background = "#aaa";
+                else
+                	document.getElementById('currImg').style.background = "whitesmoke";
+                document.getElementById('currImg').style.borderColor = var3;
+            }
+            function getValue()
+            { 
+                //   alert(x);
+        		
+                // document.getElementById("foobar").value =  x;
+                return x;
+            }         
+        </script>                                              
+    </head>
+    <body>
+        <div id="leftContentTop">
+            {% block left_content_top %}
+            {% endblock %}
+        </div>
+        <div id="leftContentBottom">
+            {% block left_content_bottom %}
+            {% endblock %}
+        </div>
+        <div id="rightTop">
+        {% block right_top %}
+        {% endblock %}
+        </div>
+        <div id="rightContent">
+            {% block right_content %}
+            {% endblock %}
+        </div>
+        <div id="contentTop">
+            {% block content %}
+            {% endblock %}            
+        </div>
+        <div id = "contentBottom">
+            <div id = "forms">
+                <button class="btn btn-danger" id="clearImage">Clear Image</button><br>
+                <b>Replace Image :</b>
+                Search <input type = "text" id = "search_field">
+                <button id = "search" class = "btn">Search</button>
+                <br><b> Upload an image :</b>
+            </div>           
+            <div id="file-uploader">           
+            </div>
+            <div id="img_url_upload">
+                Enter url of image : <input type="text" id="img_url">
+                <button type="button" class="btn btn-primary" id="img_url_upload_button">Upload image from url</button>				
+            </div>
+
+            <div id = "viewImages">
+                <div id="myCarousel" class="carousel slide">
+                    <div class="carousel-inner">               
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

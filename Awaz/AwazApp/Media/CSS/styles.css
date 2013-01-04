@@ -1,0 +1,103 @@
+   
+            #leftContentTop{
+                top: 50px;
+                width: 220px;
+                left: 10px;
+                position:absolute;
+                height: 500px;
+                background-color: #FFFF66;
+                overflow: auto;
+            }
+            #leftContentBottom{
+                top: 550px;
+                width: 220px;
+                left: 10px;
+                position: absolute;
+                height: 50px;
+                background-color: #FFFF66;
+                
+            }
+            #rightTop{
+            	 width: 250px;
+                right: 10px;
+                top: 0 px;
+                height:50px;
+                position: absolute;
+                
+				            	
+            	}
+            #rightContent{
+                width: 250px;
+                right: 10px;
+                top: 50px;
+                height:500px;
+                position: absolute;
+                background-color: #0FFF00;
+            }
+            #contentTop{
+                width: 700px;
+                left: 300px;
+                top: 50px;
+                height: 350px;
+                position: absolute;
+                #background-color: #AACCEE;
+            }
+            #contentBottom{
+                width: 700px;
+                left: 300px;
+                top: 400px;
+                height: 600px;
+                position: absolute;
+                background-color: #AACCEE;
+            }
+            #forms{
+                display:None;
+            }
+            #viewimages{
+				position: absolute;
+				top: 180px;
+				height: 200px;
+				width: 600px;
+			
+}
+#img_url_upload{
+	
+	display:None;
+	}
+.selectImg{
+cursor: pointer;
+}
+
+.redd{
+color: red;	
+	
+	} 
+	.black{
+color: black;	
+	
+	}        
+#file-uploader{
+	display:None;
+	}       
+	#currImg{
+		
+		position: absolute;
+		left: 150px;
+		border: solid; 
+		border-width: 4px;
+		border-color: black;
+		background-color: whitesmoke;		
+		}
+
+#exportHtml{
+cursor: pointer;
+
+}
+#exportDict{
+text-decoration: none;
+
+}
+#downloadHtml{
+cursor: pointer;
+display:None;
+}	

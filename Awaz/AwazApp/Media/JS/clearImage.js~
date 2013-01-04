@@ -1,0 +1,16 @@
+$(document).ready(function(){
+	
+	$("#clearImage").click(function(){
+		var zpk = getValue();
+		alert(zpk);
+		$.ajax({
+			url:'/clearImage/',
+			data:{zpk:zpk},
+			type:'get',
+			success: function(response) {
+				alert(response);
+			}
+			});
+		});
+	
+	});

@@ -1,0 +1,45 @@
+Basic requirements for the application:
+1)Django version 1.3.1
+2)Python version 2.7.3
+3)Ajaxuploader plugin pip install ajax-uploader
+4)Have simplejson installed 
+
+Steps for deployment:
+1)Setup the database settings in the settings.py file by specifying the engine, name of the database, username, password etc.
+2)Run the command python manage.py syncdb to create the database tables in the database specified by the settings.
+3)All the CSS,JS required for the application are present in the Media folder.
+4)The dictionary files are stored in a directory called Dict_Files which is present in the Media directory.
+5)The Image directory present in the media folder contains all the images required for the application.
+6)The png folder is also located in the Media folder.
+7)The Media folder is accessed using the {{MEDIA_URL}} setting specified in the settings.
+8)Each dictionary directory contains the .sqlite file and the custom_images directory.
+9)The application is deployed by the command python manage.py runserver
+
+Features available in the application:
+1)Users having accounts login and own dictionaries.
+2)A User can create a dictionary . When he creates a dictionary, a default dictionary is automatically used, which is the User-Data.sqlite
+file present in the Awaz/ directory.
+3)A User can share a dictionary with anyone else who has an account, by specifying the username.
+4)A User can open a dictionary(upload) and customize it.
+
+Customization features of the dictionary:
+1)The dictionary is viewed as hierarchy tree structure.
+2)The following details of a template/category can be edited:
+	a)Name
+	b)Enable or disable image
+	c)Speak as text attribute
+	d)Color
+3)On clicking on any template/category name, the image is displayed along with option to change it. 
+4)The image of any template/category can be changed by the following ways:
+	a)Searching through existing images in the png directory.
+	b)Uploading a new image(from client side) and hence saving it in the custom_images folder of the corresponding dictionary.
+	c)Uploading new image by specifying an internet url.
+	d)Clear the image. 
+5)New templates/categories can be added. By default an item is created which has name as 'untitled' and a default image.
+6)A word search to search through all the templates/categories and display matched entries one by one.
+7)The dictionary can be exported for download in the following formats:
+	a)The sqlite file along with the custom_images directory.
+	b)Viewing all the templates/categories in hierarchical structure in html static file, which contains all the assosciated images.
+ 
+The main code lies in the customization part of the dictionary, which uses jquery to send ajax calls back to the server,
+and get data in the form of json objects and display them in the home page.
